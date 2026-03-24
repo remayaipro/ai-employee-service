@@ -1,0 +1,6 @@
+name = "ai-employee-landing"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+account_id = "ba4047b60c7a96d74233b69c46831a61"
+
+workers_dev = true

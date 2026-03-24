@@ -1,0 +1,225 @@
+/**
+ * AI Employee Service - Landing Page + Subscription Handler
+ */
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+
+    // Landing page HTML
+    const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Employee - 24/7 Virtual Staff</title>
+    <meta name="description" content="Hire an AI employee that works 24/7. Sales, marketing, support, research - all automated.">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+            color: white;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p { font-size: 1.4rem; color: #ccc; max-width: 600px; margin: 0 auto 40px; }
+        .telegram-btn {
+            display: inline-block;
+            background: #0088cc;
+            color: white;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .telegram-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,136,204,0.4); }
+        
+        .features { background: white; padding: 80px 20px; }
+        .features h2 { text-align: center; font-size: 2.5rem; margin-bottom: 50px; color: #1a1a2e; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .feature-card { padding: 30px; border-radius: 16px; background: #f8f9fa; text-align: center; transition: transform 0.3s; }
+        .feature-card:hover { transform: translateY(-5px); }
+        .feature-icon { font-size: 48px; margin-bottom: 15px; }
+        .feature-card h3 { color: #1a1a2e; margin-bottom: 10px; }
+        .feature-card p { color: #666; line-height: 1.6; }
+        
+        .pricing { padding: 80px 20px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); }
+        .pricing h2 { text-align: center; font-size: 2.5rem; margin-bottom: 50px; color: white; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
+        .pricing-card { background: white; border-radius: 20px; padding: 40px; text-align: center; transition: transform 0.3s; }
+        .pricing-card.popular { border: 3px solid #667eea; position: relative; }
+        .pricing-card.popular::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #667eea;
+            color: white;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .pricing-card h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .price { font-size: 3rem; font-weight: bold; color: #1a1a2e; margin: 20px 0; }
+        .price span { font-size: 1rem; color: #666; }
+        .pricing-card ul { list-style: none; text-align: left; margin: 20px 0; }
+        .pricing-card li { padding: 10px 0; color: #555; }
+        .pricing-card li::before { content: '✓'; color: #10b981; margin-right: 10px; font-weight: bold; }
+        .subscribe-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .how-it-works { background: #f8f9fa; padding: 80px 20px; }
+        .how-it-works h2 { text-align: center; font-size: 2.5rem; margin-bottom: 50px; color: #1a1a2e; }
+        .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
+        .step { text-align: center; padding: 30px; }
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        .footer { background: #0f0c29; color: #888; text-align: center; padding: 40px 20px; }
+        .footer a { color: #667eea; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>🤖 Hire an AI Employee</h1>
+        <p>Your 24/7 virtual staff for sales, marketing, support, and research. Never sleeps, never takes vacations.</p>
+        <a href="https://t.me/StableRemayBot" class="telegram-btn">💬 Start on Telegram</a>
+    </div>
+    
+    <div class="how-it-works">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Choose a Plan</h3>
+                <p>Select the AI Employee that fits your needs.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Subscribe</h3>
+                <p>Pay securely. Instant access after payment.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Meet Your AI</h3>
+                <p>Start chatting with your AI Employee on Telegram.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="features">
+        <h2>What Can Your AI Employee Do?</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3>Sales Closer</h3>
+                <p>Engage leads and close deals automatically.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✍️</div>
+                <h3>Content Marketer</h3>
+                <p>Generate posts, emails, and social content.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎧</div>
+                <h3>Customer Support</h3>
+                <p>24/7 instant responses in multiple languages.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Research Assistant</h3>
+                <p>Daily briefings and market analysis.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="pricing">
+        <h2>Choose Your AI Employee</h2>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Starter</h3>
+                <div class="price">$29<span>/month</span></div>
+                <ul>
+                    <li>1 AI Employee</li>
+                    <li>Basic tasks</li>
+                    <li>500 messages/month</li>
+                    <li>Email support</li>
+                </ul>
+                <a href="https://t.me/StableRemayBot?start=basic" class="subscribe-btn">Get Started</a>
+            </div>
+            <div class="pricing-card popular">
+                <h3>Professional</h3>
+                <div class="price">$59<span>/month</span></div>
+                <ul>
+                    <li>2 AI Employees</li>
+                    <li>Unlimited messages</li>
+                    <li>Image generation</li>
+                    <li>Web automation</li>
+                    <li>Priority support</li>
+                </ul>
+                <a href="https://t.me/StableRemayBot?start=pro" class="subscribe-btn">Get Started</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Enterprise</h3>
+                <div class="price">$99<span>/month</span></div>
+                <ul>
+                    <li>5 AI Employees</li>
+                    <li>Custom skills</li>
+                    <li>API access</li>
+                    <li>White-label</li>
+                </ul>
+                <a href="https://t.me/StableRemayBot?start=enterprise" class="subscribe-btn">Contact Sales</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>© 2026 AI Employee Service. All rights reserved.</p>
+    </div>
+</body>
+</html>`;
+
+    return new Response(html, {
+      headers: { "Content-Type": "text/html" }
+    });
+  }
+};
